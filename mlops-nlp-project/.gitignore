@@ -1,0 +1,90 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg-info/
+dist/
+build/
+wheels/
+*.egg
+*.ipynb_checkpoints
+
+# Virtual Environment
+venv/
+.venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# IDE / Editor specific
+.vscode/
+.idea/
+*.DS_Store
+*.suo
+*.user
+*.sln.docstates
+
+# MLflow local data (if not using a remote server and these are in project)
+# If you intentionally want to commit a specific small mlruns for demo, adjust this.
+# For this project, assuming mlflow_tracking_server_data and mlflow_artifacts are for local server data.
+mlruns/
+mlruns_server_backend/
+mlflow_tracking_server_data/
+mlflow_artifacts/
+
+# Data - Raw data is usually not committed if large. Processed data is generated.
+# If your raw dataset is small and you want to include it, remove it from here.
+# Otherwise, provide instructions in README on how to get it.
+data/raw/News_Category_Dataset_v3.json 
+# You might want to commit empty data/processed and data/interim directories
+# so Airflow doesn't complain, or let the DAG create them.
+# To commit empty directories, you often need a .gitkeep file inside them.
+# For now, let's ignore all content within processed and interim if they are generated.
+data/processed/*
+!data/processed/.gitkeep # Allows committing an empty directory structure
+data/interim/*
+!data/interim/.gitkeep   # Allows committing an empty directory structure
+
+
+models/distilbert_tf_model_temp/
+embeddings/glove.6B.100d.txt
+
+# Local model files (saved by scripts before logging to MLflow)
+# Adjust if you have other local model saving paths
+models/label_encoder.joblib
+models/tfidf_vectorizer.joblib
+models/keras_tokenizer.joblib
+models/distilbert_tf_model_temp/ # If this temporary dir is created
+
+# Airflow local logs (if Airflow was run locally and not purely in Docker with external log mounts)
+# The Docker setup mounts logs to ./airflow/logs, so we might want to ignore that content.
+airflow/logs/*
+!airflow/logs/.gitkeep
+
+# Docker related files (if any, e.g. .dockerignore if you add it later for custom images)
+# .dockerignore
+
+# Secrets / Environment Variables
+.env
+*.env
+secrets.py
+
+# OS generated files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+.Spotlight-V100
+.Trashes
+
+# Coverage reports
+.coverage
+coverage.xml
+htmlcov/
+
+# Temporary files
+*.tmp
+*.bak
+*.swp
+*~

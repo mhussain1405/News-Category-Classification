@@ -1,0 +1,16 @@
+# mlops-nlp-project/prometheus.yml
+global:
+  scrape_interval: 15s # How frequently to scrape targets.
+  evaluation_interval: 15s # How frequently to evaluate rules.
+
+scrape_configs:
+  - job_name: 'fastapi_app'
+    # Metrics endpoint of your FastAPI application
+    # If Prometheus runs in Docker and FastAPI on host: use host.docker.internal
+    # If both run in Docker on same network: use service name (e.g., http://fastapi_app_service_name:8000/metrics)
+    # For local testing where FastAPI is on host and Prometheus in Docker:
+    static_configs:
+      - targets: ['host.docker.internal:8000'] # For Docker Desktop (Windows/Mac)
+        # If on Linux, and FastAPI is on host, you might use your host's actual IP,
+        # or add '--network="host"' to docker run command for Prometheus (simpler for local dev).
+        # Example for Linux host IP: - targets: ['172.17.0.1:8000'] (Get host IP from 'ip addr show docker0')
