@@ -1,4 +1,4 @@
-# MLOps Project: NLP Pipeline for Text Classification
+# NLP Pipeline for Text Classification
 
 This project implements an end-to-end MLOps pipeline for a text classification task, specifically categorizing news headlines. It covers data ingestion and preprocessing using Apache Airflow, model experimentation and tracking with MLflow, model serving via a FastAPI REST API, and monitoring with Prometheus and Grafana.
 
