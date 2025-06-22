@@ -124,22 +124,19 @@ The project follows a standard MLOps workflow:
     *   Ensure the `targets` under `scrape_configs` for `fastapi_app` points to your running FastAPI app's `/metrics` endpoint (e.g., `host.docker.internal:8000` if FastAPI is on host and Prometheus in Docker Desktop).
 
 ## Running the Pipeline
-
 Execute these steps in order, typically in separate terminal windows.
 
 ### 1. Start MLflow Tracking Server
-
 Navigate to the project root (`mlops-nlp-project/`) and run:
 ```bash
 # Ensure directories exist:
 mkdir -p mlflow_tracking_server_data mlflow_artifacts
-
 mlflow server --backend-store-uri ./mlflow_tracking_server_data \
               --default-artifact-root ./mlflow_artifacts \
               --host 0.0.0.0 --port 5000
+```
+### 2. Start Apache Airflow
 
-Keep this terminal running.
-2. Start Apache Airflow (via Docker Compose)
 Navigate to mlops-nlp-project/airflow/dags/ and run:
 
 # Create required directories for Airflow Docker Compose if they don't exist
@@ -158,13 +155,15 @@ docker-compose up airflow-init
 docker-compose up -d # or 'docker-compose up' to see logs
 
 Keep these services running.
-3. Run the Airflow DAG
+
+### 3. Run the Airflow DAG
 Access Airflow UI: http://localhost:8080 (default login: airflow/airflow).
 Find the news_category_data_processing_v1 DAG.
 Unpause it (toggle on the left).
 Trigger it manually (play button) for the initial data processing run.
 It is scheduled to run daily at 2:00 AM UTC by default.
-4. Run Model Training Scripts
+
+### 4. Run Model Training Scripts
 Ensure your Python virtual environment is active.
 Navigate to the project root (mlops-nlp-project/).
 Ensure the processed data from Airflow exists in data/processed/.
@@ -174,7 +173,7 @@ python scripts/train.py
 
 Experiments will be logged to the MLflow server started in Step 1.
 After training, go to the MLflow UI (http://localhost:5000), select your best model run, and register it as NewsCategoryClassifier (or your configured name). Then, assign it an alias (e.g., Production) via the "Aliases: Add" link on the model version page.
-5. Start the FastAPI Model Serving API
+### 5. Start the FastAPI Model Serving API
 Ensure your Python virtual environment is active.
 Ensure the MLflow Tracking Server is running (from Step 1).
 Ensure a model version has the alias specified by MODEL_ALIAS (e.g., "Production") in the MLflow Model Registry.
@@ -184,7 +183,7 @@ Run Uvicorn:
 uvicorn src.api.main:app --host 0.0.0.0 --port 8000 --reload
 
 Keep this terminal running.
-6. Start Prometheus
+### 6. Start Prometheus
 Ensure Docker is running.
 Navigate to the project root (mlops-nlp-project/).
 Ensure prometheus.yml is configured correctly.
@@ -196,7 +195,7 @@ docker run -d --name prometheus_monitoring -p 9090:9090 -v "${PWD}/prometheus.ym
 # docker run -d --name prometheus_monitoring --network="host" -v "$(pwd)/prometheus.yml:/etc/prometheus/prometheus.yml" prom/prometheus:latest
 # (and ensure prometheus.yml target is localhost:8000)
 
-Start Grafana
+### 7. Start Grafana
 Ensure Docker is running.
 Navigate to the project root (mlops-nlp-project/).
 Run Grafana Docker container:
