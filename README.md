@@ -136,10 +136,10 @@ mlflow server --backend-store-uri ./mlflow_tracking_server_data \
 ```
 ### 2. Start Apache Airflow
 
-Navigate to mlops-nlp-project/airflow/dags/ and run:
+Create required directories for Airflow Docker Compose if they don't exist
+(relative to the location of docker-compose.yaml - which is airflow/dags/)
 
-# Create required directories for Airflow Docker Compose if they don't exist
-# (relative to the location of docker-compose.yaml - which is airflow/dags/)
+Navigate to mlops-nlp-project/airflow/dags/ and run:
 mkdir -p ../logs ../plugins ../config
 
 # Create .env file for AIRFLOW_UID (in airflow/dags/)
@@ -224,21 +224,37 @@ URL: http://localhost:3000
 Credentials: admin / admin (change on first login).
 View your created dashboards.
 ### 8. Technologies Used
+
 Python: Core programming language.
+
 Apache Airflow: Workflow orchestration for data pipelines.
+
 MLflow: Experiment tracking, model registry, and model packaging.
+
 FastAPI: High-performance web framework for building the REST API.
+
 Uvicorn: ASGI server for FastAPI.
+
 Pydantic: Data validation for API models.
+
 Prometheus: Metrics collection and time-series database.
+
 Grafana: Metrics visualization and dashboarding.
+
 Docker & Docker Compose: Containerization and multi-container application management.
+
 Scikit-learn: For traditional ML models and preprocessing.
+
 TensorFlow/Keras: For neural network models.
+
 Hugging Face Transformers: For transformer-based models (DistilBERT).
+
 NLTK, spaCy: NLP libraries for text preprocessing.
+
 Pandas, NumPy: Data manipulation.
+
 Git & GitHub: Version control and code hosting.
+
 ### 9. Challenges and Learnings
 Setting up Docker networking between containers (e.g., Grafana to Prometheus, Prometheus to FastAPI).
 Managing Python dependencies across different components.
