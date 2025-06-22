@@ -26,8 +26,8 @@ This project implements an end-to-end MLOps pipeline for a text classification t
     * [Accessing FastAPI (Swagger UI & Demo)](#accessing-fastapi-swagger-ui--demo)
     * [Accessing Prometheus UI](#accessing-prometheus-ui)
     * [Accessing Grafana UI](#accessing-grafana-ui)
-8. [Technologies Used](#technologies-used)
-9. [Challenges and Learnings](#challenges-and-learnings)
+8. [Technologies Used](#8-technologies-used)
+9. [Challenges and Learnings](#9-challenges-and-learnings)
 
 ## Project Overview
 
@@ -239,7 +239,7 @@ Hugging Face Transformers: For transformer-based models (DistilBERT).
 NLTK, spaCy: NLP libraries for text preprocessing.
 Pandas, NumPy: Data manipulation.
 Git & GitHub: Version control and code hosting.
-### Challenges and Learnings
+### 9. Challenges and Learnings
 Setting up Docker networking between containers (e.g., Grafana to Prometheus, Prometheus to FastAPI).
 Managing Python dependencies across different components.
 Debugging MLflow model loading in FastAPI, especially with custom preprocessors.
