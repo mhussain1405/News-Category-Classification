@@ -28,7 +28,6 @@ This project implements an end-to-end MLOps pipeline for a text classification t
     * [Accessing Grafana UI](#accessing-grafana-ui)
 8. [Technologies Used](#technologies-used)
 9. [Challenges and Learnings](#challenges-and-learnings)
-10. [Future Work](#future-work)
 
 ## Project Overview
 
@@ -146,7 +145,7 @@ mkdir -p ../logs ../plugins ../config
 # Create .env file for AIRFLOW_UID (in airflow/dags/)
 echo "AIRFLOW_UID=$(id -u)" > .env # For Linux/macOS
 # For Windows (Git Bash/MINGW64), use a fixed UID like 50000:
-# echo "AIRFLOW_UID=50000" > .env
+echo "AIRFLOW_UID=50000" > .env
 
 # Initialize Airflow database (first time only)
 docker-compose up airflow-init
@@ -192,8 +191,8 @@ Run Prometheus Docker container:
 # For Docker Desktop (Windows/Mac)
 docker run -d --name prometheus_monitoring -p 9090:9090 -v "${PWD}/prometheus.yml:/etc/prometheus/prometheus.yml" prom/prometheus:latest
 # For Linux, if using host network for Prometheus:
-# docker run -d --name prometheus_monitoring --network="host" -v "$(pwd)/prometheus.yml:/etc/prometheus/prometheus.yml" prom/prometheus:latest
-# (and ensure prometheus.yml target is localhost:8000)
+docker run -d --name prometheus_monitoring --network="host" -v "$(pwd)/prometheus.yml:/etc/prometheus/prometheus.yml" prom/prometheus:latest
+(and ensure prometheus.yml target is localhost:8000)
 
 ### 7. Start Grafana
 Ensure Docker is running.
@@ -206,24 +205,25 @@ Access Grafana UI (http://localhost:3000), log in (admin/admin), change password
 Add Prometheus as a data source:
 URL: http://host.docker.internal:9090 (if Prometheus is Dockerized on Docker Desktop and API is on host) or http://<prometheus_container_ip_or_name>:9090 or http://localhost:9090 (if Prometheus uses host network).
 Create dashboards as described in the project guides.
-Usage
-Accessing Airflow UI
+### 7. Usage
+
+### Accessing Airflow UI
 URL: http://localhost:8080
 Credentials: airflow / airflow (default from official Airflow Docker Compose)
-Accessing MLflow UI
+### Accessing MLflow UI
 URL: http://localhost:5000 (or your configured MLflow server address)
 Accessing FastAPI (Swagger UI & Demo)
 Swagger UI (API Docs): http://localhost:8000/docs
 ReDoc: http://localhost:8000/redoc
 Simple HTML Demo: Open api_demo.html from the project root in your browser (file:///.../api_demo.html). Ensure FastAPI CORS is configured if you see errors.
-Accessing Prometheus UI
+### Accessing Prometheus UI
 URL: http://localhost:9090
 Check Status -> Targets to ensure fastapi_app is UP.
-Accessing Grafana UI
+### Accessing Grafana UI
 URL: http://localhost:3000
 Credentials: admin / admin (change on first login).
 View your created dashboards.
-Technologies Used
+### 8. Technologies Used
 Python: Core programming language.
 Apache Airflow: Workflow orchestration for data pipelines.
 MLflow: Experiment tracking, model registry, and model packaging.
@@ -239,7 +239,7 @@ Hugging Face Transformers: For transformer-based models (DistilBERT).
 NLTK, spaCy: NLP libraries for text preprocessing.
 Pandas, NumPy: Data manipulation.
 Git & GitHub: Version control and code hosting.
-Challenges and Learnings
+### 9. Challenges and Learnings
 Setting up Docker networking between containers (e.g., Grafana to Prometheus, Prometheus to FastAPI).
 Managing Python dependencies across different components.
 Debugging MLflow model loading in FastAPI, especially with custom preprocessors.
