@@ -53,42 +53,6 @@ The project follows a standard MLOps workflow:
 3.  **Model Serving (FastAPI):** A REST API loads a chosen model version (e.g., "Production" alias) from the MLflow Model Registry and serves predictions.
 4.  **Monitoring (Prometheus & Grafana):** The FastAPI is instrumented to expose metrics. Prometheus scrapes these metrics, and Grafana provides dashboards for visualization of API performance, prediction distributions, and basic data drift indicators.
 
-## Directory Structure
-mlops-nlp-project/
-├── airflow/ # Airflow specific files
-│ └── dags/
-│ ├── news_processing_dag.py # Airflow DAG for data processing
-│ ├── docker-compose.yaml # Docker Compose for Airflow services
-│ └── .env # Environment variables for Airflow Docker (AIRFLOW_UID)
-├── data/ # Datasets
-│ ├── raw/ # Raw data (requires manual download)
-│ │ └── News_Category_Dataset_v3.json (Download separately)
-│ ├── interim/ # Intermediate data from Airflow pipeline
-│ └── processed/ # Final processed data for training
-├── embeddings/ # Pre-trained word embeddings
-│ └── glove.6B.100d.txt # (Download separately)
-├── models/ # Locally saved preprocessors/models by scripts (before MLflow logging)
-│ # These are .gitignored if large or generated
-├── mlflow_artifacts/ # Local artifact store for MLflow server (gitignored)
-├── mlflow_tracking_server_data/ # Local backend store for MLflow server (gitignored)
-├── notebooks/ # Jupyter notebooks for exploration (if any)
-│ └── data_exploration.ipynb
-├── scripts/ # Python scripts
-│ └── train.py # Model training and MLflow experiment tracking
-├── src/ # Source code for API and utilities
-│ ├── api/
-│ │ ├── main.py # FastAPI application
-│ │ └── models.py # Pydantic models for API
-│ └── utils/
-│ └── nlp_utils.py # NLP preprocessing helper functions
-├── .env # (Optional) Project-level environment variables (gitignored)
-├── .gitignore # Specifies intentionally untracked files by Git
-├── api_demo.html # Simple HTML demo for testing the API
-├── prometheus.yml # Prometheus configuration file
-├── requirements.txt # Python dependencies
-└── README.md # This file
-
-
 ## Setup and Installation
 
 ### Prerequisites
