@@ -239,7 +239,7 @@ Hugging Face Transformers: For transformer-based models (DistilBERT).
 NLTK, spaCy: NLP libraries for text preprocessing.
 Pandas, NumPy: Data manipulation.
 Git & GitHub: Version control and code hosting.
-### 9. Challenges and Learnings
+### Challenges and Learnings
 Setting up Docker networking between containers (e.g., Grafana to Prometheus, Prometheus to FastAPI).
 Managing Python dependencies across different components.
 Debugging MLflow model loading in FastAPI, especially with custom preprocessors.
